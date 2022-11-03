@@ -658,8 +658,10 @@ if (window.name.includes('performance')) {
   });
 }
 
-window.refreshMain = () => {
-  const main = document.querySelector('main');
-  decorateMain(main);
-  loadBlocks(main);
-};
+window.addEventListener('message', (event) => {
+  if (event.data === 'refresh-main') {
+    const main = document.querySelector('main');
+    decorateMain(main);
+    loadBlocks(main);
+  }
+});
