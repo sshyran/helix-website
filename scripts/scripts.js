@@ -609,8 +609,6 @@ async function loadEager(doc) {
     decorateIcons();
     decorateMain(main);
 
-    window.decorateMain = decorateMain;
-
     await waitForLCP();
   }
 }
@@ -659,3 +657,9 @@ if (window.name.includes('performance')) {
     if (mod.default) mod.default();
   });
 }
+
+window.refreshMain = () => {
+  const main = document.querySelector('main');
+  decorateMain(main);
+  loadBlocks(main);
+};
