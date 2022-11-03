@@ -608,6 +608,9 @@ async function loadEager(doc) {
     setTemplate();
     decorateIcons();
     decorateMain(main);
+
+    window.decorateMain = decorateMain;
+
     await waitForLCP();
   }
 }
