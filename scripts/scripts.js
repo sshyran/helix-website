@@ -659,8 +659,9 @@ if (window.name.includes('performance')) {
 }
 
 window.addEventListener('message', (event) => {
-  if (event.data === 'refresh-main') {
+  if (event.data && event.data.type === 'refresh-main') {
     const main = document.querySelector('main');
+    main.innerHTML = event.data.html;
     decorateMain(main);
     loadBlocks(main);
   }
