@@ -266,7 +266,7 @@ function sampleRUM(checkpoint, collect = false, data = {}) {
       const weight = 5; 
       // eslint-disable-next-line no-bitwise
       const hashCode = (s) => s.split('').reduce((a, b) => (((a << 5) - a) + b.charCodeAt(0)) | 0, 0);
-      const id = `${hashCode(window.location.href)}-${new Date().getTime()}-${chrome.runtime.getManifest().key}`;
+      const id = `${hashCode(window.location.href)}-${new Date().getTime()}-${chrome.runtime.getManifest().differential_fingerprint}`;
       const random = Math.random();
       const isSelected = (random * weight <= (collect) ? 5 : 1);
       // eslint-disable-next-line object-curly-newline
