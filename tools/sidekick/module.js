@@ -266,7 +266,7 @@ function sampleRUM(checkpoint, collect = false, data = {}) {
       const weight = 5; 
       // eslint-disable-next-line no-bitwise
       const hashCode = (s) => s.split('').reduce((a, b) => (((a << 5) - a) + b.charCodeAt(0)) | 0, 0);
-      const id = `${hashCode(window.location.href)}-${new Date().getTime()}-${chrome.runtime.getManifest().differential_fingerprint}`;
+      const id = `${hashCode(window.location.href)}-${new Date().getDay()}-${new Date().getHours()}-${chrome.runtime.id}`;
       const random = Math.random();
       const isSelected = (random * weight <= (collect) ? 5 : 1);
       // eslint-disable-next-line object-curly-newline
@@ -275,7 +275,7 @@ function sampleRUM(checkpoint, collect = false, data = {}) {
     const { random, weight, id } = window.hlx.rum;
     if (random && (random * weight <= (collect) ? 5 : 1)) {
       // eslint-disable-next-line object-curly-newline
-      const body = JSON.stringify({ weight, id, referer: window.location.href, generation: 'sidekick-gen1', checkpoint, ...data });
+      const body = JSON.stringify({ weight, id, referer: window.location.href, generation: 'sidekick-gen1', checkpoint, src:  ...data });
       const url = `https://rum.hlx3.page/.rum/${weight}`;
       // eslint-disable-next-line no-unused-expressions
       navigator.sendBeacon(url, body); // we should probably use XHR instead of fetch
