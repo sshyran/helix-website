@@ -2901,7 +2901,7 @@ function sampleRUM(checkpoint, collect = false, data = {}) {
       // toggle sidekick
       window.hlx.sidekick.toggle();
     }
-    if(isEditor()){
+    if(window.hlx.sidekick.isEditor()){
       sampleRUM('sidekick:open', true);
     }
     return window.hlx.sidekick;
