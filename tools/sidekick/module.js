@@ -2089,12 +2089,6 @@ function sampleRUM(checkpoint, data = {}) {
         this.root.classList.remove('hlx-sk-hidden');
       }
       fireEvent(this, 'shown');
-      if(window.hlx.sidekick.isEditor()){
-        sampleRUM('sidekick:open', {
-          source: window.hlx.sidekick.location.href,
-          target: window.hlx.sidekick.config.innerHost
-        });
-      }
       return this;
     }
 
@@ -2837,8 +2831,12 @@ function sampleRUM(checkpoint, data = {}) {
           await fetch(purgeURL.href, { cache: 'reload', mode: 'no-cors' });
         }
         fireEvent(this, 'published', path);
+        //this call to sampleRUM will let us know when a doc 
+        //has been published, and send us the outerCDN so that
+        //we can use this as a foreign key into bigquery to check
+        //when 
         sampleRUM('sidekick:publish', {
-          source: window.hlx.sidekick.location,href,
+          source: window.hlx.sidekick.location.href,
           target: window.hlx.sidekick.config.outerHost
         });
       } catch (e) {
@@ -2909,6 +2907,8 @@ function sampleRUM(checkpoint, data = {}) {
       // toggle sidekick
       window.hlx.sidekick.toggle();
     }
+    //The call to sampleRUM should stay in the initialization because this is run whenever sidekick
+    //is initialized in a tab; which is everytime a tab is opened, even if it is hidden. 
     if(window.hlx.sidekick.isEditor()){
       sampleRUM('sidekick:open', {
         source: window.hlx.sidekick.location.href,
